@@ -1,0 +1,99 @@
+you are a junior bi developer. you want to setup a toy sql database, use python to retrieve data from the database and display it to the user using a powerBI or Tableau. Take a deep breat and detail the necessary steps to setup a local toy sql database, retrieve data from the databas
+
+As a junior bi developer, I'll guide you through setting up a local toy SQL database, retrieving data using Python, and displaying it with Power BI or Tableau. Let's get started!
+
+Step 1: Set up a local toy SQL database
+For this example, we'll use SQLite, a lightweight, self-contained database that doesn't require a separate server process.
+Install SQLite:
+For Windows: Download the SQLite installer from the official website and follow the installation instructions.
+For macOS/Linux: You can install SQLite using your package manager (e.g., Homebrew on macOS or apt-get on Linux).
+Create a new database file:
+Open a command prompt/terminal and navigate to the directory where you want to create the database file.
+Run the following command to create a new database file called toydb.db:
+
+sqlite3 toydb.db
+
+This will create an empty SQLite database.
+Step 2: Create tables and insert data
+Let's create two tables, customers and orders, with some sample data:
+Open the SQLite shell by running:
+sqlite3 toydb.db
+
+Run the following SQL commands to create the tables:
+CREATE TABLE customers (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL
+);
+
+CREATE TABLE orders (
+    id INTEGER PRIMARY KEY,
+    customer_id INTEGER,
+    order_date DATE NOT NULL,
+    total REAL NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+Insert some sample data:
+INSERT INTO customers (id, name, email) VALUES
+(1, 'John Doe', 'john@example.com'),
+(2, 'Jane Smith', 'jane@example.com'),
+(3, 'Bob Johnson', 'bob@example.com');
+
+INSERT INTO orders (id, customer_id, order_date, total) VALUES
+(1, 1, '2020-01-01', 100.00),
+(2, 1, '2020-02-01', 200.00),
+(3, 2, '2020-03-01', 50.00),
+(4, 3, '2020-04-01', 150.00);
+
+Step 3: Retrieve data using Python
+We'll use the sqlite3 module in Python to connect to our SQLite database and retrieve the data.
+Install the sqlite3 module:
+If you're using a virtual environment, make sure it's activated.
+Run the following command:
+pip install sqlite3
+
+Create a new Python file (e.g., toydb.py) and add the following code:
+import sqlite3
+
+# Connect to the database
+conn = sqlite3.connect('toydb.db')
+cursor = conn.cursor()
+
+# Retrieve data from customers table
+cursor.execute("SELECT * FROM customers")
+customers = cursor.fetchall()
+
+# Retrieve data from orders table
+cursor.execute("SELECT * FROM orders")
+orders = cursor.fetchall()
+
+# Close the connection
+conn.close()
+
+Step 4: Display data using Power BI or Tableau
+Now that we have our data in Python, let's create a visualization using either Power BI or Tableau.
+Option A: Power BI
+Install Power BI Desktop:
+Download and install Power BI Desktop from the official website.
+Create a new report:
+Open Power BI Desktop and click on "File" > "New Report".
+Connect to the SQLite database:
+Click on "Home" > "Get Data" > "Database" > "SQLite".
+Enter the path to your toydb.db file.
+Create a visualization:
+Drag the customers table onto the report canvas.
+Right-click on the table and select "Visualizations" > "Table".
+Add more visualizations as needed (e.g., bar chart for orders by customer).
+Option B: Tableau
+Install Tableau Desktop:
+Download and install Tableau Desktop from the official website.
+Create a new workbook:
+Open Tableau Desktop and click on "File" > "New Workbook".
+Connect to the SQLite database:
+Click on "Connect to Data" > "Database" > "SQLite".
+Enter the path to your toydb.db file.
+Drag the customers table onto the canvas.
+Right-click on the table and select "Create Calculated Field" to create a new field (e.g., Total Orders).
+Add more visualizations as needed (e.g., bar chart for orders by customer).
+That's it! You now have a local toy SQL database, retrieved data using Python, and displayed it with Power BI or Tableau.
